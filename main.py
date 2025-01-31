@@ -20,7 +20,7 @@ def main():
     actor = Player(SCREEN_WIDTH//2, SCREEN_HEIGHT//2)
     Shot.containers = (shots, updatable, drawable)
     ast = AsteroidField()
-    
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -32,7 +32,12 @@ def main():
                 print("Game over!")
 
                 sys.exit()
-
+        
+        for asteroid in asteroids:
+            for bullet in shots:
+                if bullet.touch(asteroid):
+                    bullet.kill()
+                    asteroid.split()
         screen.fill((0,0,0))
         
         for obj in drawable:
